@@ -10,13 +10,16 @@ stop("need to set.diff each month")
 files <- list.files(path = "~/Data/Infogroup/")
 filenames <- paste("~/Data/Infogroup/", files, sep="")
 
+## change order because of missings
+filenames2 <- c(filenames[28:length(filenames)], filenames[1:27])
+
 read_csv_filename <- function(filename){
   ret <- read.csv(filename)
   ret$Source <- filename #EDIT
   ret
 }
 
-import.list <- ldply(filenames, read_csv_filename)
+import.list <- ldply(filenames2, read_csv_filename)
 head(import.list)
 
 import.list$Source
