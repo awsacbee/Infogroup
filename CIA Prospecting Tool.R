@@ -42,7 +42,7 @@ mzg.july.2016.red <- mzg.july.2016[,c("DownloadDate", "ObsoleteDate", "Source", 
 
 mzg.july.2016.red$Market <- "SAC BEE MZG July Sep"
 mzg.july.2016.red$FullAddress <- do.call("paste", mzg.july.2016.red[,c("StreetAddress", "City", "State", "ZipCode", "Zip4")])
-mzg.july.2016.red$new.old <- "Existing"
+mzg.july.2016.red$new.established <- "Established"
 mzg.july.2016.red$Record_Production_Date <- 20160901
 
 #########################################################
@@ -64,7 +64,7 @@ NewLeads_AllMarkets_GC.red <- NewLeads_AllMarkets_GC[, c("DownloadDate", "Obsole
 ####################################################################
 # Add columns to New Biz files that exist in the Existing Biz file
 ####################################################################
-NewLeads_AllMarkets_GC.red$new.old <- "New"
+NewLeads_AllMarkets_GC.red$new.established <- "New"
 
 NewLeads_AllMarkets_GC.red[,setdiff(names(mzg.july.2016.red), names(NewLeads_AllMarkets_GC.red))] <- rep("NA", length(setdiff(names(mzg.july.2016.red), names(NewLeads_AllMarkets_GC.red))))
 head(NewLeads_AllMarkets_GC.red)
