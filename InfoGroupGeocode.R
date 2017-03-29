@@ -7,11 +7,15 @@ library(reshape)
 stop("need to set.diff each month")
 
 
-files <- list.files(path = "~/Data/Infogroup/")
-filenames <- paste("~/Data/Infogroup/", files, sep="")
+files.2016 <- list.files(path = "~/Data/Infogroup/InfoGroupNewLeads/2016/")
+files.2017 <- list.files(path = "~/Data/Infogroup/InfoGroupNewLeads/")
+filenames.2016 <- paste("~/Data/Infogroup/InfoGroupNewLeads/2016/", files.2016, sep="")
+filenames.2017 <- paste("~/Data/Infogroup/InfoGroupNewLeads/", files.2017, sep="")
 
-## change order because of missings
-filenames2 <- c(filenames[28:length(filenames)], filenames[1:27])
+## stack 2016 and 2017 and check that they all imported
+filenames <- c(filenames.2017, filenames.2016)
+length(filenames)
+is(filenames)
 
 read_csv_filename <- function(filename){
   ret <- read.csv(filename)
@@ -19,9 +23,12 @@ read_csv_filename <- function(filename){
   ret
 }
 
-import.list <- ldply(filenames2, read_csv_filename)
+import.list <- sapply(filenames, read_csv_filename)
 head(import.list)
 
+ret <- read.csv(filenames[1])
+ret$Source <- filenames[1]
+ret
 import.list$Source
 
 import.list$Market <- sapply(lapply(strsplit(import.list$Source, "New Leads - "), "[", 2), paste, collapse=" ")
